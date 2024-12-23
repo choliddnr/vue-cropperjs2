@@ -11,7 +11,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: ["src/lib.ts"],
-      name: "vue-cropperjs",
+      name: "vue-cropperjs2",
       // the proper extensions will be added
       fileName: "index",
     },
