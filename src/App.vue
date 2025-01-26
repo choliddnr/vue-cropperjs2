@@ -1,5 +1,7 @@
 <script setup lang="ts">
 // import { ref } from "vue";
+
+import { useTemplateRef } from "vue";
 import CropperCanvas from "./components/CropperCanvas.vue";
 import CropperHandle from "./components/CropperHandle.vue";
 import CropperImage from "./components/CropperImage.vue";
@@ -15,16 +17,22 @@ import CropperViewer from "./components/CropperViewer.vue";
 // const translatable = ref<boolean>(true);
 //
 
-// const handleRef = useTemplateRef("handleRef");
+const selectionRef = useTemplateRef("selectionRef");
+const target = useTemplateRef("target");
 // onMounted(() => {
-// console.log(handleRef.value?.handleRef?.action);
-// });
+// console.log(handleRef.value?.handleRef?.action
+const onChange = (e: any) => {
+  console.log(";changed", e.detail, selectionRef.value?.selection.$toCanvas());
+};
+const toCanvas = async () => {
+  target.value?.appendChild(await selectionRef.value?.selection.$toCanvas());
+};
 </script>
 
 <template>
   <CropperCanvas :background="true">
     <CropperImage
-      src="http://localhost:8090/api/files/kqsl9ce7d20tynj/x66966zmzugrkt9/whats_app_image_2024_10_05_at_8_40_NT9JtCG744.36AM1.jpeg?token="
+      src="/user-5.png"
       alt="Picture"
       :rotatable="true"
       :scalable="true"
@@ -38,6 +46,8 @@ import CropperViewer from "./components/CropperViewer.vue";
       :resizable="true"
       :initial-coverage="0.5"
       id="Sel"
+      @change="onChange"
+      ref="selectionRef"
     >
       <CropperGrid role="grid" :covered="true" />
       <CropperCrosshair :centered="true" />
@@ -53,6 +63,9 @@ import CropperViewer from "./components/CropperViewer.vue";
     </CropperSelection>
   </CropperCanvas>
   <CropperViewer selection="#Sel" style="width: 200px" />
+  <button @click="toCanvas">toCanvas</button>
+
+  <div ref="target" />
 </template>
 
 <style scoped></style>

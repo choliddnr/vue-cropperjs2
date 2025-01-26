@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { CropperSelection } from "cropperjs";
-import { h } from "vue";
+import { h, useTemplateRef } from "vue";
 CropperSelection.$define();
 type SelectionProperty = {
   x?: number;
@@ -60,9 +60,12 @@ const el = h("cropper-selection", {
   precise,
   //
 });
+
+const selection = useTemplateRef("sel") as any;
+defineExpose({ selection });
 </script>
 <template>
-  <component :is="el">
+  <component :is="el" ref="sel">
     <slot />
   </component>
 </template>
