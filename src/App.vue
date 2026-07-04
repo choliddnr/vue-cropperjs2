@@ -43,8 +43,9 @@ const toCanvas = async () => {
     <CropperHandle action="select" :plain="true" />
     <CropperSelection
       :movable="true"
-      :resizable="true"
+      :resizable="false"
       :initial-coverage="0.5"
+      :aspect-ratio="1"
       id="Sel"
       @change="onChange"
       ref="selectionRef"
