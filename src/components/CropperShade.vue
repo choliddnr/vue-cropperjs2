@@ -1,38 +1,21 @@
-<script setup lang="ts">
-import { h } from "vue";
+<script lang="ts">
+import { h, defineComponent } from "vue";
 import { CropperShade } from "cropperjs";
-type CropperShadeProps = {
-  x?: number;
-  y?: number;
-  width?: number;
-  height?: number;
-  slottable?: boolean;
-  themeColor?: string;
-  hidden?: boolean;
-};
 
-CropperShade.$define();
-
-const {
-  x = 0,
-  y = 0,
-  width = 0,
-  height = 0,
-  slottable = false,
-  themeColor = "rgba(0, 0, 0, 0.65)",
-  hidden = false,
-} = defineProps<CropperShadeProps>();
-
-const el = h("cropper-shade", {
-  x,
-  y,
-  width,
-  height,
-  slottable,
-  themeColor,
-  hidden,
+export default defineComponent({
+  name: "CropperShade",
+  props: {
+    x: { type: Number, default: 0 },
+    y: { type: Number, default: 0 },
+    width: { type: Number, default: 0 },
+    height: { type: Number, default: 0 },
+    slottable: { type: Boolean, default: false },
+    themeColor: { type: String, default: "rgba(0, 0, 0, 0.65)" },
+    hidden: { type: Boolean, default: false },
+  },
+  setup(props, { slots }) {
+    CropperShade.$define();
+    return () => h("cropper-shade", props, slots.default?.());
+  },
 });
 </script>
-<template>
-  <component :is="el" />
-</template>

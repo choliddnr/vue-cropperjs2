@@ -1,39 +1,22 @@
-<script setup lang="ts">
+<script lang="ts">
+import { h, defineComponent, type PropType } from "vue";
 import { CropperImage } from "cropperjs";
-import { h } from "vue";
 
-type CanvasImageProps = {
-  src: string;
-  alt?: string;
-  initialCenterSize?: "contain" | "cover";
-  rotatable?: boolean;
-  scalable?: boolean;
-  skewable?: boolean;
-  slottable?: boolean;
-  translatable?: boolean;
-};
-const {
-  src,
-  alt,
-  initialCenterSize = "contain",
-  rotatable = false,
-  scalable = false,
-  skewable = false,
-  slottable = false,
-  translatable = false,
-} = defineProps<CanvasImageProps>();
-CropperImage.$define();
-const el = h("cropper-image", {
-  src,
-  alt,
-  initialCenterSize,
-  rotatable,
-  scalable,
-  skewable,
-  slottable,
-  translatable,
+export default defineComponent({
+  name: "CropperImage",
+  props: {
+    src: { type: String, required: true },
+    alt: { type: String, default: "" },
+    initialCenterSize: { type: String as PropType<"contain" | "cover">, default: "contain" },
+    rotatable: { type: Boolean, default: false },
+    scalable: { type: Boolean, default: false },
+    skewable: { type: Boolean, default: false },
+    slottable: { type: Boolean, default: false },
+    translatable: { type: Boolean, default: false },
+  },
+  setup(props, { slots }) {
+    CropperImage.$define();
+    return () => h("cropper-image", props, slots.default?.());
+  },
 });
 </script>
-<template>
-  <component :is="el" />
-</template>

@@ -1,15 +1,16 @@
-<script setup lang="ts">
+<script lang="ts">
+import { h, defineComponent, type PropType } from "vue";
 import { CropperViewer } from "cropperjs";
-import { h } from "vue";
 
-CropperViewer.$define();
-const { resize = "vertical", selection = "" } = defineProps<{
-  resize?: "both" | "horizontal" | "vertical" | "none";
-  selection?: string;
-}>();
-
-const el = h("cropper-viewer", { resize, selection });
+export default defineComponent({
+  name: "CropperViewer",
+  props: {
+    resize: { type: String as PropType<"both" | "horizontal" | "vertical" | "none">, default: "vertical" },
+    selection: { type: String, default: "" },
+  },
+  setup(props, { slots }) {
+    CropperViewer.$define();
+    return () => h("cropper-viewer", props, slots.default?.());
+  },
+});
 </script>
-<template>
-  <component :is="el" />
-</template>

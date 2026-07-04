@@ -9,14 +9,14 @@ A modern Vue 3 wrapper for [Cropper.js v2](https://github.com/fengyuanchen/cropp
 
 ## Installation
 
-Install `vue-cropperjs2` alongside its peer dependency `cropperjs`:
+Install `vue-cropperjs2`:
 
 ```bash
-npm install vue-cropperjs2 cropperjs
+npm install vue-cropperjs2
 # or using yarn
-yarn add vue-cropperjs2 cropperjs
+yarn add vue-cropperjs2
 # or using pnpm
-pnpm add vue-cropperjs2 cropperjs
+pnpm add vue-cropperjs2
 ```
 
 ## Available Components

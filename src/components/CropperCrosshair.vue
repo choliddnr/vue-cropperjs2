@@ -1,13 +1,15 @@
-<script setup lang="ts">
-import { h } from "vue";
+<script lang="ts">
+import { h, defineComponent } from "vue";
 import { CropperCrosshair } from "cropperjs";
-type CropperCrosshairProperty = { centered: boolean };
-CropperCrosshair.$define();
 
-const { centered = false } = defineProps<CropperCrosshairProperty>();
-
-const el = h("cropper-crosshair", { centered });
+export default defineComponent({
+  name: "CropperCrosshair",
+  props: {
+    centered: { type: Boolean, default: false },
+  },
+  setup(props, { slots }) {
+    CropperCrosshair.$define();
+    return () => h("cropper-crosshair", props, slots.default?.());
+  },
+});
 </script>
-<template>
-  <component :is="el" />
-</template>
