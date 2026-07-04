@@ -60,14 +60,15 @@ const crosshairCentered = ref(true);
 // Viewer
 const viewerResize = ref<"both" | "horizontal" | "vertical" | "none">("vertical");
 
-const onChange = (e: any) => {
-  // console.log("changed", e.detail);
+const onChange = (_e: any) => {
+  // console.log("changed", _e.detail);
 };
 
 const toCanvas = async () => {
-  if (target.value && selectionRef.value?.selection) {
+  const selectionComp = selectionRef.value as any;
+  if (target.value && selectionComp?.selection) {
     target.value.innerHTML = ''; // clear previous image
-    const canvas = await selectionRef.value.selection.$toCanvas();
+    const canvas = await selectionComp.selection.$toCanvas();
     target.value.appendChild(canvas);
   }
 };
